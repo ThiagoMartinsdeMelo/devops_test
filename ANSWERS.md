@@ -42,24 +42,24 @@ Mais uma vez, sinta-se livre para usar a ferramenta que julgar necessária.
 # Playbook de Provisionamento / Ansible
 
 ## Variáveis
-- escolha da imagem 
-- versionamento disso está populado no vars
-- keys da aws alimentadas atraves da variavel profile
-- regiao da instância escolhida
-- número de instâncias
+- Escolha da imagem 
+- Versionamento é populado no vars
+- Keys da aws alimentadas atraves da variável profile
+- Região da instância escolhida
+- Número de instâncias
 
 ## Tasks
-- task security group para dar releases nas portas necessárias
-- task criação da instancias 
- - aplica security group com var
- - seta imagem através da var
- - regiao da instância através var
- - quantidade de instâncias através da var
-- adiciona instância a inventário temporário
-- adiciona IP no inventário ip privado
-- adiciona IP no inventário ip público
-- aguarda SSH
-- coloca tag na instância ansible-1 (como estou usando apenas 1)
+- Task security group para dar releases nas portas necessárias
+- Task criação da instancias 
+ - Aplica security group com var
+ - Seta imagem através da var
+ - Região da instância através var
+ - Quantidade de instâncias através da var
+- Adiciona instância a inventário temporário
+- Adiciona IP no inventário ip privado
+- Adiciona IP no inventário ip público
+- Aguarda SSH
+- Coloca tag na instância ansible-1 (como estou usando apenas 1)
 
 # Playbook Docker e provisionamento Kitana
 
@@ -81,7 +81,7 @@ Mais uma vez, sinta-se livre para usar a ferramenta que julgar necessária.
 - starta o container liberando porta 8000 do kitana
 - curl ocorre com sucesso
 
-
+```bash
 curl -i http://34.204.197.189:8000/healthcheck
 HTTP/1.1 200 OK
 Date: Sat, 29 Aug 2020 20:18:23 GMT
@@ -89,8 +89,7 @@ Content-Length: 24
 Content-Type: text/plain; charset=utf-8
 
 Hey Bro, Ninja is Alive!root@
-
-
+```
 
 # Additional Tasks
 - chaves da AWS serem aplicadas no ~/aws/credentials
