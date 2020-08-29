@@ -19,7 +19,7 @@ Dado o Cenário acima queremos que você faça o seguinte:
 
 Arquitetura sugerida:
 
-
+![ansible](https://github.com/ThiagoMartinsdeMelo/devops_test/blob/master/diagrams/ansible.png)
 
 Deploy das instancias no EC2 feito com Ansible. A operação é descrita na questão 2.
 
