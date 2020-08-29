@@ -1,5 +1,102 @@
 Coloque aqui suas respostas, observações e o que mais achar necessário. Mais uma vez, boa sorte!
 
+# GetNinjas DevOps test.
+
+
+## Sobre o teste
+O propósito desse teste não é avaliar certo ou errado. Mas sim formas de **pensar e trabalhar** do candidato. Queremos avaliar também, **qualidade de código e simplicidade** (não confunda simplicidade com relaxo, mas sim o quão **eficiente** é o código/arquitetura proposta)
+Sinta-se livre para desenvolver linhas de raciocino, comentar, etc...
+E em caso de dúvidas, não tenha vergonha de enviar um email para **devops@getninjas.com.br**
+
+## Cenário
+Temos no repo https://github.com/getninjas/devops_test uma aplicação muito simples, uma API rest escrita em Golang, que atualmente só responde à rota `/healthcheck`. Essa aplicação, em compliance com o item III do 12factor app, espera alguns **parametros via ambiente** para rodar corretamente.
+Outro ponto importante é que este código tem **cobertura de testes***.
+
+## Objetivos
+Dado o Cenário acima queremos que você faça o seguinte:
+
+#### 1. Deploy da aplicação na AWS.
+Pra isso, você provavelmente precisará de uma conta free-tier da AWS ou uma já existente, mas não se preocupe, não iremos olhar sua conta ou chamar a api já rodando, queremos que você crie uma forma que possamos recriar toda sua infraestrutura em nossa conta de forma simples.<br>
+Mas por favor, leve em conta que seria um ambiente muito próximo à produção, portanto, **escalabilidade**, billing, segurança, **monitoramento** e **logging** tudo isso será levado em consideração na nossa análise.
+Sinta-se livre para usar as ferramentas que julgue necessário, mas lembre-se: que na dúvida, vá pelo simples.
+Crie um desenho que represente a arquitetura envolvida.
+
+#### 2. Crie uma forma que possamos subir essa aplicação localmente de forma simples.
+Mais uma vez, sinta-se livre para usar a ferramenta que julgar necessária.
+
+### Kitana Deployment  
+
+##### Ferramentas usadas
+
+- Ansible
+- Docker 
+- AWS
+- Kitana Application
+
+# Tasklist
+
+- Playbook para provisionamento das instâncias na AWS ubuntu 18.04
+- Playbook de provisionamento do docker na instância AWS criada acima
+    - Necessario apontamento no hosts [docker]
+
+# Playbook de Provisionamento / Ansible
+
+## Variáveis
+- escolha da imagem 
+- versionamento disso está populado no vars
+- keys da aws alimentadas atraves da variavel profile
+- regiao da instância escolhida
+- número de instâncias
+
+## Tasks
+- task security group para dar releases nas portas necessárias
+- task criação da instancias 
+ - aplica security group com var
+ - seta imagem através da var
+ - regiao da instância através var
+ - quantidade de instâncias através da var
+- adiciona instância a inventário temporário
+- adiciona IP no inventário ip privado
+- adiciona IP no inventário ip público
+- aguarda SSH
+- coloca tag na instância ansible-1 (como estou usando apenas 1)
+
+# Playbook Docker e provisionamento Kitana
+
+## Variáveis
+- número de containers docker que vou precisar
+- nome da aplicação kitana-app setada
+- nome da imagem atrelada ao docker hub `thiagom/kitana-app:v1`
+- comando usado no docker `go run main.go`
+
+## Tasks
+- Install apt: garante que o gerenciador apt esteja lá e atualizado 
+- instala pacotes necessários para o docker
+- adiciona chave GPG docker
+- instala repo docker
+- da um apt update e instalar o docker
+- instala módulos do docker do pip
+- seta a nossa imagem do docker hub no docker
+- cria o container
+- starta o container liberando porta 8000 do kitana
+- curl ocorre com sucesso
+
+
+curl -i http://34.204.197.189:8000/healthcheck
+HTTP/1.1 200 OK
+Date: Sat, 29 Aug 2020 20:18:23 GMT
+Content-Length: 24
+Content-Type: text/plain; charset=utf-8
+
+Hey Bro, Ninja is Alive!root@
+
+
+
+# Additional Tasks
+- chaves da AWS serem aplicadas no ~/aws/credentials
+- chave pem para criar as instâncias com ssh-add chave.pem
+- ao provisionar a instância na aws pegar o ip e alimentar o hosts do playbook docker
+
 #### 3. Coloque esta aplicação em um fluxo de CI que realize teste neste código
 
 Segue o link com o build do teste:
@@ -52,4 +149,6 @@ A utilização de pipeline traz vantagens, a automatização é benéfica por si
 
 Não existe um único modelo de pipeline a ser seguido, ele deve ser construído de acordo com as características e necessidades do projeto e das equipes envolvidas. Entretanto, podemos afirmar que um pipeline é multidisciplinar porque envolve equipes e profissionais bem distintos na criação e utilização, um bom pipeline é rápido e confiável e preciso. Segue um ciclo de vida padrão do desenvolvimento de software:
 
+
 ![pipeline](https://github.com/ThiagoMartinsdeMelo/devops_test/blob/master/diagrams/pipeline.png)
+
