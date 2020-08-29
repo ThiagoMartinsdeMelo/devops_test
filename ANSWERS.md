@@ -16,10 +16,8 @@ Outro ponto importante é que este código tem **cobertura de testes***.
 Dado o Cenário acima queremos que você faça o seguinte:
 
 #### 1. Deploy da aplicação na AWS.
-Pra isso, você provavelmente precisará de uma conta free-tier da AWS ou uma já existente, mas não se preocupe, não iremos olhar sua conta ou chamar a api já rodando, queremos que você crie uma forma que possamos recriar toda sua infraestrutura em nossa conta de forma simples.<br>
-Mas por favor, leve em conta que seria um ambiente muito próximo à produção, portanto, **escalabilidade**, billing, segurança, **monitoramento** e **logging** tudo isso será levado em consideração na nossa análise.
-Sinta-se livre para usar as ferramentas que julgue necessário, mas lembre-se: que na dúvida, vá pelo simples.
-Crie um desenho que represente a arquitetura envolvida.
+
+Deploy das instancias no EC2 feito com Ansible. A operação é descrita na questão 2.
 
 #### 2. Crie uma forma que possamos subir essa aplicação localmente de forma simples.
 Mais uma vez, sinta-se livre para usar a ferramenta que julgar necessária.
@@ -92,9 +90,9 @@ Hey Bro, Ninja is Alive!root@
 ```
 
 # Additional Tasks
-- chaves da AWS serem aplicadas no ~/aws/credentials
-- chave pem para criar as instâncias com ssh-add chave.pem
-- ao provisionar a instância na aws pegar o ip e alimentar o hosts do playbook docker
+- Chaves da AWS serem aplicadas no ~/aws/credentials
+- Chave .pem para criar as instâncias com ssh-add chave.pem
+- Ao provisionar a instância na aws pegar o ip e alimentar o hosts do playbook docker
 
 #### 3. Coloque esta aplicação em um fluxo de CI que realize teste neste código
 
@@ -136,6 +134,8 @@ appname := getEnv("APP_NAME", "Pearl Jam")
 
 #### 5. Discorra qual (ou quais) processos você adotaria para garantir uma entrega contínua desta aplicação, desde o desenvolvimento, até a produção.
 
+Para se discorrer sobre entrega contínua é bom falarmos do seria um pipeline.
+
 O principal objetivo de se utilizar pipeline em nossa área é o de se automatizar o processo de entrega de software o processo de entrega de software colocando-os em produção de forma rápida, ou melhor dizer de forma contínua, entretanto sem perder a qualidade da entrega.
 
 O pipeline é, na verdade, uma sequência de etapas que precisam ser executadas para colocar a aplicação em produção, como fazer o build do código, executar testes automatizados e a implantação em ambientes de teste e produção.
@@ -151,3 +151,10 @@ Não existe um único modelo de pipeline a ser seguido, ele deve ser construído
 
 ![pipeline](https://github.com/ThiagoMartinsdeMelo/devops_test/blob/master/diagrams/pipeline.png)
 
+Podemos ter como exemplo uma aplicação web. Com a equipe de desenvolvimento com o código da aplicação já criado, agora o sistema está sendo comitado para um sistema de gerenciamento de versões. A segunda é etapa é o build, nela será feito o merge para unificar o código já existente com a atualização, se o código tiver que ser compilado é nesse estágio que isso é feito. 
+
+Passamos então para a fase de testes automatizados, onde vários tipos de testes são realizados para garantir o funcionamento correto da aplicação. O próximo passo é o deploy onde esse modelo ainda é utilizado no ambiente de testes, depois vamos a última fase de verificação que leva em conta a infra. Passando em todos os testes vamos para o deploy em produção, onde é preciso analisar o comportamento e observar o desempenho da aplicação. 
+
+Nesse ciclo em qualquer momento pode ser feito feedback para a equipe de desenvolvimento, isso é feito sempre que algum erro é encontrado de forma automática através de um disparo de email ou mensagem. A pipeline também já deve prever o que deverá acontecer em caso de erros, por exemplo, fazer um rollback.
+
+Temos algumas ferramentas para ajudar na criação de pipelines como o jenkins, o azure pipelines, aws codepipeline, github, gitlab e etc.
