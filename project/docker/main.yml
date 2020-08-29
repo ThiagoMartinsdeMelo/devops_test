@@ -1,0 +1,5 @@
+- hosts: docker
+  become: yes
+  user: ubuntu
+  roles:
+  - install-docker

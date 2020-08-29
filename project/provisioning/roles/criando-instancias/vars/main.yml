@@ -1,0 +1,9 @@
+---
+# vars file for criando-instancias
+instance_type: t2.medium
+sec_group_name: appnew
+image: ami-0bcc094591f354be2
+keypair: ansible-app
+region: us-east-1
+count: 1
+profile: apptest

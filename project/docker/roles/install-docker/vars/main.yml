@@ -1,0 +1,5 @@
+---
+containers: 1
+container_name: kitana-app
+container_image: thiagom/kitana-app:v1
+container_command: go run main.go
