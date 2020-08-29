@@ -17,6 +17,10 @@ Dado o Cenário acima queremos que você faça o seguinte:
 
 #### 1. Deploy da aplicação na AWS.
 
+Arquitetura sugerida:
+
+
+
 Deploy das instancias no EC2 feito com Ansible. A operação é descrita na questão 2.
 
 #### 2. Crie uma forma que possamos subir essa aplicação localmente de forma simples.
@@ -87,10 +91,10 @@ Date: Sat, 29 Aug 2020 20:18:23 GMT
 Content-Length: 24
 Content-Type: text/plain; charset=utf-8
 
-Hey Bro, Ninja is Alive!root@
+Hey Bro, Ninja is Alive!
 ```
 
-### Additional Tasks
+### Tarefas Adicionais
 - Chaves da AWS serem aplicadas no ~/aws/credentials
 - Chave .pem para criar as instâncias com ssh-add chave.pem
 - Ao provisionar a instância na aws pegar o ip e alimentar o hosts do playbook docker
