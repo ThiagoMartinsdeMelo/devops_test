@@ -22,7 +22,8 @@ Deploy das instancias no EC2 feito com Ansible. A operação é descrita na ques
 #### 2. Crie uma forma que possamos subir essa aplicação localmente de forma simples.
 Mais uma vez, sinta-se livre para usar a ferramenta que julgar necessária.
 
-### Kitana Deployment  
+### Kitana Deployment
+------------
 
 ##### Ferramentas usadas
 
@@ -31,22 +32,22 @@ Mais uma vez, sinta-se livre para usar a ferramenta que julgar necessária.
 - AWS
 - Kitana Application
 
-# Tasklist
-
+### Tasklist
+------------
 - Playbook para provisionamento das instâncias na AWS ubuntu 18.04
 - Playbook de provisionamento do docker na instância AWS criada acima
     - Necessario apontamento no hosts [docker]
 
-# Playbook de Provisionamento / Ansible
-
-## Variáveis
+### Playbook de Provisionamento / Ansible
+------------
+#### Variáveis
 - Escolha da imagem 
 - Versionamento é populado no vars
 - Keys da aws alimentadas atraves da variável profile
 - Região da instância escolhida
 - Número de instâncias
-
-## Tasks
+------------
+#### Tasks
 - Task security group para dar releases nas portas necessárias
 - Task criação da instancias 
  - Aplica security group com var
@@ -59,15 +60,15 @@ Mais uma vez, sinta-se livre para usar a ferramenta que julgar necessária.
 - Aguarda SSH
 - Coloca tag na instância ansible-1 (como estou usando apenas 1)
 
-# Playbook Docker e provisionamento Kitana
-
-## Variáveis
+### Playbook Docker e provisionamento Kitana
+------------
+#### Variáveis
 - número de containers docker que vou precisar
 - nome da aplicação kitana-app setada
 - nome da imagem atrelada ao docker hub `thiagom/kitana-app:v1`
 - comando usado no docker `go run main.go`
-
-## Tasks
+------------
+#### Tasks
 - Install apt: garante que o gerenciador apt esteja lá e atualizado 
 - instala pacotes necessários para o docker
 - adiciona chave GPG docker
@@ -89,10 +90,12 @@ Content-Type: text/plain; charset=utf-8
 Hey Bro, Ninja is Alive!root@
 ```
 
-# Additional Tasks
+### Additional Tasks
 - Chaves da AWS serem aplicadas no ~/aws/credentials
 - Chave .pem para criar as instâncias com ssh-add chave.pem
 - Ao provisionar a instância na aws pegar o ip e alimentar o hosts do playbook docker
+
+------------
 
 #### 3. Coloque esta aplicação em um fluxo de CI que realize teste neste código
 
